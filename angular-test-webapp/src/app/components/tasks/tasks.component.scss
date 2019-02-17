@@ -1,0 +1,20 @@
+.container.custom-container {
+  padding: 0 150px;
+}
+
+.thead-style {
+  background-color: black;
+  color: white;
+}
+
+.no-padding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+@media screen and (max-width: 808px) {
+  .container.custom-container {
+    padding: 0 30px;
+  }
+}
+
