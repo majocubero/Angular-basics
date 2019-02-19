@@ -4,12 +4,12 @@ public class Task{
 
     private String id;
     private String taskName;
-    private TaskType taskType;
+    private TaskStatus taskStatus;
 
-    public Task(String id, String taskName, TaskType taskType){
+    public Task(String id, String taskName, TaskStatus taskStatus){
         this.id = id;
         this.taskName = taskName;
-        this.taskType = taskType;
+        this.taskStatus = taskStatus;
     }
 
     public String getId(){
@@ -28,16 +28,16 @@ public class Task{
         this.taskName = taskName;
     }
 
-    public TaskType getTaskType(){
-        return taskType;
+    public TaskStatus getTaskStatus(){
+        return taskStatus;
     }
 
-    public void setTaskType(TaskType taskType){
-        this.taskType = taskType;
+    public void setTaskStatus(TaskStatus taskStatus){
+        this.taskStatus = taskStatus;
     }
 
     @Override
     public String toString(){
-        return id + "--" + taskName + "--" + taskType.toString() + "\n";
+        return id + "--" + taskName + "--" + taskStatus.toString() + "\n";
     }
 }

@@ -1,6 +1,6 @@
 package com.angulartest.core;
 
-public enum TaskType{
+public enum TaskStatus{
     COMPLETED,
     PENDING
 

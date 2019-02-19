@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.angulartest.core.Task;
-import com.angulartest.core.TaskType;
+import com.angulartest.core.TaskStatus;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -52,7 +52,7 @@ public class DescriptionController{
             nextId = 0;
         }
         String id = String.valueOf(nextId);
-        Task task1 = new Task(id, task.trim(), TaskType.PENDING);
+        Task task1 = new Task(id, task.trim(), TaskStatus.PENDING);
 
         try{
             Files.write(PATH, task1.toString().getBytes(), StandardOpenOption.APPEND);
@@ -97,7 +97,7 @@ public class DescriptionController{
             Stream<String> stream = Files.lines(PATH);
             stream.map(line -> {
                 String[] taskString = line.split("--");
-                Task task = new Task(taskString[0], taskString[1], TaskType.valueOf(taskString[2].toUpperCase()));
+                Task task = new Task(taskString[0], taskString[1], TaskStatus.valueOf(taskString[2].toUpperCase()));
                 tasks.add(task);
                 return task;
             }).forEach(System.out::println);
