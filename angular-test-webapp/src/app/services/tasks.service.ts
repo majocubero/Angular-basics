@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import { environment} from '../../environments/environment';
+import { Task } from '../contract/task.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -15,23 +16,23 @@ export class TasksService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getTasks (): Observable<string[]> {
-    return this.httpClient.get<string[]>(this.getTasksUrl).pipe(
+  getTasks (): Observable<Task[]> {
+    return this.httpClient.get<Task[]>(this.getTasksUrl).pipe(
       tap(data => console.log("All: "+ JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
 
-  deleteTask(task: string): Observable<string[]> {
-    return this.httpClient.delete<string[]>(this.deleteTaskUrl, {
+  deleteTask(task: string): Observable<Task[]> {
+    return this.httpClient.delete<Task[]>(this.deleteTaskUrl, {
       params: {
         'task': task
       }
     });
   }
 
-  addTask(task: string): Observable<string[]> {
-    return this.httpClient.post<string[]>(this.addTaskUrl, {}, {
+  addTask(task: string): Observable<Task[]> {
+    return this.httpClient.post<Task[]>(this.addTaskUrl, {}, {
       params: {
         'task': task
       }

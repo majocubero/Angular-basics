@@ -31,10 +31,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let task of tasks">
-            <td class="text-left">{{task}}</td>
+          <tr *ngFor="let task of tasks$ | async">
+            <td class="text-left">{{task.taskName}}</td>
             <td>
-              <button (click)="onDelete(task)" type="button" class="btn btn-success">Done</button>
+              <button (click)="onDelete(task.id)" type="button" class="btn btn-success">Done</button>
             </td>
         </tr>
         </tbody>

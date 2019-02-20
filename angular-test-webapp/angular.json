@@ -135,5 +135,8 @@
       }
     }
   },
-  "defaultProject": "angular-test-webapp"
+  "defaultProject": "angular-test-webapp",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

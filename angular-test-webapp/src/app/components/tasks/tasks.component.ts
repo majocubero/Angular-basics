@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {TasksService} from '../../services/tasks.service';
+import {select, Store} from '@ngrx/store';
+import * as tasksSelector from 'src/app/store/task.selectors';
+import * as taskActions from 'src/app/store/task.actions';
+import * as interfaces from '../../contract/task.interfaces';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-tasks',
@@ -8,35 +13,26 @@ import {TasksService} from '../../services/tasks.service';
 })
 export class TasksComponent implements OnInit {
 
-  tasks: string[];
+  tasks: interfaces.Task[];
   errorMessage: string;
   private _inputTask: string;
+  tasks$: Observable<interfaces.Task[]>;
 
-  constructor(private tasksService: TasksService) { }
+  constructor(private tasksService: TasksService,
+              private store: Store<interfaces.TaskState>) { }
 
   ngOnInit() {
-    this.tasksService.getTasks().subscribe(tasks =>{
-        this.tasks = tasks;
-      },
-      error => console.log(error)
-    );
+    this.store.dispatch(new taskActions.LoadTasks());
+    this.tasks$ = this.store.pipe(select(tasksSelector.getTasksSelector));
   }
 
   onAdd(task: string): void {
-    this.tasksService.addTask(task).subscribe(tasks =>{
-      this.tasks = tasks;
-      this._inputTask = '';
-    },
-      error => console.log(error)
-    );
+    this.store.dispatch(new taskActions.AddTask(task));
+    this._inputTask = '';
   }
 
   onDelete(task: string): void {
-    this.tasksService.deleteTask(task).subscribe(tasks =>{
-        this.tasks = tasks;
-      },
-      error => console.log(error)
-    );
+    this.store.dispatch(new taskActions.CompleteTask(task));
   }
 
   get inputTask(): string {
